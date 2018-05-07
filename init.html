@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue js</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h4>{{ message }}</h4>
+    <input type="text" v-model="message">
+    <pre>
+        {{ $data | json }}
+        {{ $el }}
+    </pre>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+            message: 'Hello!',
+            what : 'what !',
+            fuck : 'fuck!'
+        },
+        filters: {
+            json: (value) => { return JSON.stringify(value, null, 2) }
+    },
+    });
+
+</script>
+
+</body>
+</html>
