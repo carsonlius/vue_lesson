@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Computed</title>
+
+    <script src="vue.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style>
+        #app {
+            margin-top: 200px
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="app">
+                Level {{ level }}
+            </div>
+            <div id="computed">
+                Laravel {{ username }}
+                <div class="form-group">
+                    <label for="first_name">FirstName：</label>
+                    <input type="text" id="first_name" v-model="first_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="second_name">SecondName</label>
+                    <input type="text" v-model="second_name" class="form-control" id="second_name">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            points: 90
+        },
+        computed: {
+            level: function () {
+                if (this.points <= 100) {
+                    return '普通会员';
+                } else {
+                    return 'Vip会员';
+                }
+            }
+        }
+    });
+    new Vue({
+        el: '#computed',
+        data: {
+            first_name: 'liu',
+            second_name: 'carson'
+        },
+        computed: {
+            username: function () {
+                return this.first_name + '.' + this.second_name;
+            }
+        }
+    });
+
+</script>
+
+
+</body>
+</html>
