@@ -33,21 +33,40 @@
 </head>
 <body>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div id="app">
-                <ul class="list-group">
-                    <li v-on:click="toggleTasks(item)" v-bind:class="['list-group-item', 'hello', {completed:item.completed}]" v-for="(item, index) in tasks">
-                        {{ item.body }} {{ index }} {{ item.completed }}
-                    </li>
-                </ul>
+                <task-app v-bind:list="tasks"></task-app>
+                <task-app v-bind:list="list_group"></task-app>
             </div>
         </div>
     </div>
 </div>
 
+<template id="task-template">
+    <ul class="list-group">
+        <li v-on:click="toggleTasks(item)" :what="now_time_for_app" v-bind:class="['list-group-item', 'hello', {completed:item.completed}]" v-for="(item, index) in list">
+            {{ item.body }} {{ index }} {{ item.completed }} {{ now_time_for_app }}
+        </li>
+    </ul>
+</template>
+
 <script>
+    Vue.component('task-app', {
+        template : '#task-template',
+        props : ['tasks', 'list'],
+        data : function(){
+            return {
+                now_time_for_app : '2018-12-31'
+            };
+        },
+        methods : {
+            toggleTasks: toggleTasks
+        }
+    });
+
     new Vue({
         el:'#app',
         data : {
@@ -55,10 +74,10 @@
                 {body : 'go to movie', completed : true},
                 {body : 'go to school', completed :false},
                 {body: 'go to work', completed : true}
-            ]
+            ],
+            list_group : [{body:'hello', completed :false}, {body:'hi', completed :true}, {body:'No, Thanks', completed :false}]
         },
         methods : {
-            toggleTasks : toggleTasks
         },
         computed : {
         }
