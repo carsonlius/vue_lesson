@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue2.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style>
+        .computed {
+            color:green;
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Welcome Vue2.0
+                </div>
+            </div>
+            <div class="panel-body">
+                <h1> TODOS {{ todoCount }} </h1>
+                <input type="text" class="form-control" v-model="message">
+            </div>
+
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li :class="{computed:todo.computed}" class="list-group-item" v-for="(todo,index) in todos">{{ todo.title }}
+                        <button class="btn btn-xs pull-right" :class="[todo.computed ? 'btn-danger' : 'btn-primary']" style="margin-left: 10px"
+                                @click="toggleComputed(todo)">{{ todo.computed ? 'undo' : 'computed'}}
+                        </button>
+                        <button class="btn btn-warning btn-xs pull-right" style="margin-left: 10px"
+                                @click="delTodo(index)">Delete
+                        </button>
+                    </li>
+                </ul>
+                <form @submit.prevent="addTodo">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Add a new Todo" v-model="newTodo.title">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit">Add Todo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello World',
+            newTodo: {id: null, title: '', computed: false},
+            todos: [
+                {id: 1, title: 'Learn Vue js', computed: true},
+                {id: 2, title: 'Learn laravel', computed: false}
+            ]
+        },
+        methods: {
+            addTodo: function () {
+                this.todos.unshift(this.newTodo);
+                this.newTodo = {id: null, title: '', computed: false};
+            },
+            delTodo: function (index) {
+                this.todos.splice(index, 1);
+            },
+            toggleComputed : function (todo) {
+                console.log(todo);
+                todo.computed = !todo.computed;
+            }
+        },
+        computed: {
+            todoCount: function () {
+                return this.todos.length;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
